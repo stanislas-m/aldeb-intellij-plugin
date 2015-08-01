@@ -26,6 +26,8 @@
                          id="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"
                          displayName="Aldebaran Robotics"
                          instance="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"/>
+    <fileEditorProvider implementation="com.aldebaran.intellij.editors.PmlFileEditorProvider"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.PmlFileFileTypeFactory"/>
   </extensions>
 
   <application-components>
