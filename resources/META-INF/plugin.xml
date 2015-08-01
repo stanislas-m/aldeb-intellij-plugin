@@ -21,11 +21,15 @@
   <depends>com.intellij.modules.lang</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+    <projectService serviceImplementation="com.aldebaran.intellij.settings.AldebaranSettingsProvider"/>
+    <projectConfigurable groupId="language"
+                         id="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"
+                         displayName="Aldebaran Robotics"
+                         instance="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"/>
   </extensions>
 
   <application-components>
-    <!-- Add your application components here -->
+
   </application-components>
 
   <project-components>
@@ -34,7 +38,7 @@
 
   <actions>
 
-    <action id="AldebaranIntegration.PackageApp" class="PackageAppAction" text="Build application package" icon="resources/icons/package.png">
+    <action id="AldebaranIntegration.PackageApp" class="com.aldebaran.intellij.actions.PackageAppAction" text="Build application package" icon="/icons/package.png">
       <add-to-group group-id="NavBarToolBar" anchor="first"/>
     </action>
   </actions>
