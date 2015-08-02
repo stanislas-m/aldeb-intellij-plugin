@@ -1,4 +1,4 @@
-package com.aldebaran.intellij.lang;
+package com.aldebaran.intellij.lang.pml;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import icons.AldebaranIcons;

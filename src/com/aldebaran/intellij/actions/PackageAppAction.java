@@ -23,7 +23,6 @@ public class PackageAppAction extends AnAction {
         StatusBar statusBar = WindowManager.getInstance().getStatusBar(project);
 
         if (project != null) {
-
             File buildsDir = new File(project.getBasePath() + "/builds");
             if (!buildsDir.exists()) {
                 buildsDir.mkdir();

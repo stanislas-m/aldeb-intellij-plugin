@@ -21,6 +21,14 @@ public class AldebaranSettingsProvider implements PersistentStateComponent<Aldeb
         return state.qibuildPath;
     }
 
+    public void setEnabled(boolean isEnabled) {
+        state.isEnabled = isEnabled;
+    }
+
+    public boolean getEnabled() {
+        return state.isEnabled;
+    }
+
     public static AldebaranSettingsProvider getInstance(Project project) {
         return ServiceManager.getService(project, AldebaranSettingsProvider.class);
     }
@@ -33,11 +41,13 @@ public class AldebaranSettingsProvider implements PersistentStateComponent<Aldeb
     @Override
     public void loadState(State state) {
         this.state.qibuildPath = state.qibuildPath;
+        this.state.isEnabled = state.isEnabled;
     }
 
     /******************************/
 
     public static class State {
         public String qibuildPath;
+        public boolean isEnabled;
     }
 }

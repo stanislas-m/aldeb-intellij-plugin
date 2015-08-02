@@ -1,6 +1,6 @@
 package com.aldebaran.intellij.editors;
 
-import com.aldebaran.intellij.lang.AldebaranPmlFileType;
+import com.aldebaran.intellij.lang.pml.AldebaranPmlFileType;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorPolicy;
 import com.intellij.openapi.fileEditor.FileEditorState;

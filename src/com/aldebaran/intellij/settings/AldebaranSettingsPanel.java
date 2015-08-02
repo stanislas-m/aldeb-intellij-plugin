@@ -9,6 +9,7 @@ import com.intellij.ui.components.JBLabel;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.Objects;
 
 public class AldebaranSettingsPanel {
     private TextFieldWithBrowseButton qibuildDirPathField;
@@ -36,6 +37,12 @@ public class AldebaranSettingsPanel {
             }
         });
 
+        if (provider.getEnabled()) {
+            setEnabled(true);
+            qibuildDirPathField.setEnabled(true);
+            qiBuildDirPathLabel.setEnabled(true);
+        }
+
         enableNaoqiSupportCheckBox.addChangeListener(e -> {
             JCheckBox cb = (JCheckBox) e.getSource();
             if (cb.isSelected()) {
@@ -55,15 +62,17 @@ public class AldebaranSettingsPanel {
     }
 
     public boolean isModified() {
-        return getQibuildPath() != settingsProvider.getQibuildPath();
+        return !getQibuildPath().equals(settingsProvider.getQibuildPath()) || getEnabled() != settingsProvider.getEnabled();
     }
 
     public void apply() {
         settingsProvider.setQibuildPath(getQibuildPath());
+        settingsProvider.setEnabled(getEnabled());
     }
 
     public void reset() {
         setQibuildPath(settingsProvider.getQibuildPath());
+        setEnabled(settingsProvider.getEnabled());
     }
 
     public String getQibuildPath() {
@@ -72,5 +81,13 @@ public class AldebaranSettingsPanel {
 
     public void setQibuildPath(String qibuildPath) {
         this.qibuildDirPathField.setText(qibuildPath);
+    }
+
+    public boolean getEnabled() {
+        return enableNaoqiSupportCheckBox.isSelected();
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.enableNaoqiSupportCheckBox.setSelected(isEnabled);
     }
 }

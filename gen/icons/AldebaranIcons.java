@@ -10,4 +10,5 @@ public class AldebaranIcons {
     }
 
     public static final Icon PmlFile = load("/icons/pml_file.png"); // 16x16
+    public static final Icon XarFile = load("/icons/xar_file.png"); // 16x16
 }
