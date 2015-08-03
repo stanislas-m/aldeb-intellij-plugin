@@ -2,10 +2,10 @@
   <id>com.aldebaran.intellij</id>
   <name>IntelliJ plugin to develop on Aldebaran robots</name>
   <version>1.0</version>
-  <vendor email="support@aldebaran.com" url="http://www.aldebran.com">Aldebaran Robotics</vendor>
+  <vendor email="support@aldebaran.com" url="http://www.aldebran.com">Aldebaran</vendor>
 
   <description><![CDATA[
-      This plugin is intended to provide a good environment to develop on Aldebaran Robotics robots (NAO, Romeo and Pepper).
+      This plugin is intended to provide a good environment to develop on Aldebaran robots (NAO, Romeo and Pepper).
     ]]></description>
 
   <change-notes><![CDATA[
@@ -24,12 +24,16 @@
     <projectService serviceImplementation="com.aldebaran.intellij.settings.AldebaranSettingsProvider"/>
     <projectConfigurable groupId="language"
                          id="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"
-                         displayName="Aldebaran Robotics"
+                         displayName="Aldebaran"
                          instance="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"/>
     <fileEditorProvider implementation="com.aldebaran.intellij.editors.PmlFileEditorProvider"/>
+
+    <!-- File types -->
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.pml.PmlFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.pkg.PkgFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.xar.XarFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.dlg.DlgFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.top.TopFileTypeFactory"/>
   </extensions>
 
   <application-components>

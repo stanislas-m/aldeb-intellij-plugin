@@ -9,6 +9,7 @@ public class AldebaranIcons {
         return IconLoader.getIcon(path, AldebaranIcons.class);
     }
 
+    public static final Icon DlgFile = load("/icons/dlg_file.png"); // 16x16
     public static final Icon PmlFile = load("/icons/pml_file.png"); // 16x16
     public static final Icon PkgFile = load("/icons/pkg_file.png"); // 16x16
     public static final Icon XarFile = load("/icons/xar_file.png"); // 16x16
