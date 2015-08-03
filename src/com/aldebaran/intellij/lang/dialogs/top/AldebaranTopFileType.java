@@ -36,6 +36,6 @@ public class AldebaranTopFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return AldebaranIcons.XarFile;
+        return AldebaranIcons.TopFile;
     }
 }

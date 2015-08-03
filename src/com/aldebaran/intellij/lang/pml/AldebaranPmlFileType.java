@@ -15,6 +15,11 @@ public class AldebaranPmlFileType extends LanguageFileType {
         super(AldebaranPmlLanguage.INSTANCE);
     }
 
+    @Override
+    public boolean isReadOnly() {
+        return true;
+    }
+
     @NotNull
     @Override
     public String getName() {
