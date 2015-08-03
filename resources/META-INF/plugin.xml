@@ -27,6 +27,8 @@
                          displayName="Aldebaran"
                          instance="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"/>
 
+    <fileEditorProvider implementation="com.aldebaran.intellij.editors.ManifestEditorProvider"/>
+
     <!-- File types -->
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.pml.PmlFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.pkg.PkgFileTypeFactory"/>
