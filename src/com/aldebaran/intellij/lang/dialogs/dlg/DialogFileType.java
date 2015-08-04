@@ -7,12 +7,12 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class AldebaranDlgFileType extends LanguageFileType {
+public class DialogFileType extends LanguageFileType {
 
-    public static final AldebaranDlgFileType INSTANCE = new AldebaranDlgFileType();
+    public static final DialogFileType INSTANCE = new DialogFileType();
 
-    protected AldebaranDlgFileType() {
-        super(AldebaranDlgLanguage.INSTANCE);
+    protected DialogFileType() {
+        super(DialogLanguage.INSTANCE);
     }
 
     @NotNull
