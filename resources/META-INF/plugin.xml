@@ -27,14 +27,14 @@
                          displayName="Aldebaran"
                          instance="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"/>
 
-    <fileEditorProvider implementation="com.aldebaran.intellij.editors.ManifestEditorProvider"/>
-
     <!-- File types -->
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.pml.PmlFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.pkg.PkgFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.xar.XarFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.dlg.DlgFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.top.TopFileTypeFactory"/>
+
+    <lang.syntaxHighlighterFactory key="qichat" implementationClass="com.aldebaran.intellij.highlighting.QichatSyntaxHighlighterFactory"/>
   </extensions>
 
   <application-components>

@@ -12,7 +12,7 @@ public class AldebaranTopFileType extends LanguageFileType {
     public static final AldebaranTopFileType INSTANCE = new AldebaranTopFileType();
 
     protected AldebaranTopFileType() {
-        super(AldebaranTopLanguage.INSTANCE);
+        super(QichatLanguage.INSTANCE);
     }
 
     @NotNull
