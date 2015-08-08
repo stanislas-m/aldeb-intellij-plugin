@@ -34,7 +34,8 @@
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.dlg.DlgFileTypeFactory"/>
     <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.top.TopFileTypeFactory"/>
 
-    <lang.syntaxHighlighterFactory key="qichat" implementationClass="com.aldebaran.intellij.highlighting.QichatSyntaxHighlighterFactory"/>
+    <lang.parserDefinition language="Qichat" implementationClass="com.aldebaran.intellij.QichatParserDefinition"/>
+    <lang.syntaxHighlighterFactory key="Qichat" implementationClass="com.aldebaran.intellij.highlighting.QichatSyntaxHighlighterFactory"/>
   </extensions>
 
   <application-components>

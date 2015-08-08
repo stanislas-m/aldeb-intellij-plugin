@@ -6,6 +6,6 @@ import com.intellij.openapi.fileTypes.FileTypeFactory;
 public class TopFileTypeFactory extends FileTypeFactory {
     @Override
     public void createFileTypes(FileTypeConsumer fileTypeConsumer) {
-        fileTypeConsumer.consume(AldebaranTopFileType.INSTANCE);
+        fileTypeConsumer.consume(TopFileType.INSTANCE);
     }
 }

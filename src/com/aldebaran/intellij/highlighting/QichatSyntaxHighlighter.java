@@ -1,35 +1,54 @@
 package com.aldebaran.intellij.highlighting;
 
-import com.aldebaran.intellij.QichatParserDefinition;
+import com.aldebaran.intellij.lexer.QichatLexerAdapter;
+import com.aldebaran.intellij.psi.QichatTypes;
 import com.intellij.lexer.Lexer;
+import com.intellij.openapi.editor.SyntaxHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
+import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.*;
 
-import static com.intellij.openapi.fileTypes.SyntaxHighlighterBase.pack;
-import static com.aldebaran.intellij.highlighting.QichatSyntaxHighlightingColors.*;
+import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
-public class QichatSyntaxHighlighter implements SyntaxHighlighter {
+public class QichatSyntaxHighlighter extends SyntaxHighlighterBase {
 
-    private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<>();
+    public static final TextAttributesKey COMMENT = createTextAttributesKey("QICHAT_COMMENT", SyntaxHighlighterColors.LINE_COMMENT);
+    public static final TextAttributesKey STRING = createTextAttributesKey("QICHAT_STRING", SyntaxHighlighterColors.STRING);
+    public static final TextAttributesKey KEYWORD = createTextAttributesKey("QICHAT_KEYWORD", SyntaxHighlighterColors.KEYWORD);
 
-    static {
-        fillMap(ATTRIBUTES, LINE_COMMENT, QichatParserDefinition.LINE_COMMENT);
-    }
+    static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("QICHAT_BAD_CHARACTER",
+            new TextAttributes(Color.RED, null, null, null, Font.BOLD));
+
+    private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
+    private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+    private static final TextAttributesKey[] STRING_KEYS = new TextAttributesKey[]{STRING};
+    private static final TextAttributesKey[] KEYWORD_KEYS = new TextAttributesKey[]{KEYWORD};
+    private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
     @Override
     public Lexer getHighlightingLexer() {
-        return new QichatLexer();
+        return new QichatLexerAdapter();
     }
 
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
-        return pack(ATTRIBUTES.get(tokenType));
+        if (tokenType.equals(QichatTypes.COMMENT)) {
+            return COMMENT_KEYS;
+        } else if (tokenType.equals(QichatTypes.STRING)) {
+            return STRING_KEYS;
+        } else if (tokenType.equals(QichatTypes.CONCEPT)) {
+            return KEYWORD_KEYS;
+        } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
+            return BAD_CHAR_KEYS;
+        } else {
+            return EMPTY_KEYS;
+        }
     }
 }

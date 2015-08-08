@@ -1,76 +1,73 @@
 package com.aldebaran.intellij;
 
-import com.aldebaran.intellij.psi.QichatTokenType;
-import com.intellij.json.JsonElementTypes;
+import com.aldebaran.intellij.lang.dialogs.top.QichatLanguage;
+import com.aldebaran.intellij.lexer.QichatLexerAdapter;
+import com.aldebaran.intellij.parser.QichatParser;
+import com.aldebaran.intellij.psi.QichatFile;
+import com.aldebaran.intellij.psi.QichatTypes;
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.Language;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
+import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 
-import static com.aldebaran.intellij.QichatTypes.*;
-
 public class QichatParserDefinition implements ParserDefinition {
+    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
+    public static final TokenSet COMMENTS = TokenSet.create(QichatTypes.COMMENT, QichatTypes.LINE_COMMENT);
+    public static final TokenSet ID = TokenSet.create(QichatTypes.ID);
 
-    public static final IElementType LINE_COMMENT = new QichatTokenType("QICHAT_LINE_COMMENT");
+    public static final IFileElementType FILE = new IFileElementType(Language.<QichatLanguage>findInstance(QichatLanguage.class));
 
     @NotNull
     @Override
     public Lexer createLexer(Project project) {
-        return new QichatLexer();
+        return new QichatLexerAdapter();
     }
-
-    @Override
-    public PsiParser createParser(Project project) {
-        return new QichatParser();
-    }
-
-    @Override
-    public IFileElementType getFileNodeType() {
-        return QichatFileElementType.INSTANCE;
-    }
-
 
     @NotNull
-    @Override
     public TokenSet getWhitespaceTokens() {
-        return WHITESPACES;
+        return WHITE_SPACES;
     }
 
     @NotNull
-    @Override
     public TokenSet getCommentTokens() {
         return COMMENTS;
     }
 
     @NotNull
-    @Override
     public TokenSet getStringLiteralElements() {
-        return STRING_LITERALS;
+        return TokenSet.EMPTY;
     }
 
     @NotNull
-    @Override
-    public PsiElement createElement(ASTNode node) {
-        return JsonElementTypes.Factory.createElement(node);
+    public PsiParser createParser(final Project project) {
+        return new QichatParser();
     }
 
-    @NotNull
     @Override
-    public PsiFile createFile(@NotNull FileViewProvider viewProvider) {
+    public IFileElementType getFileNodeType() {
+        return FILE;
+    }
+
+    public PsiFile createFile(FileViewProvider viewProvider) {
         return new QichatFile(viewProvider);
     }
 
-    @NotNull
-    @Override
     public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
         return SpaceRequirements.MAY;
+    }
+
+    @NotNull
+    public PsiElement createElement(ASTNode node) {
+        return QichatTypes.Factory.createElement(node);
     }
 }

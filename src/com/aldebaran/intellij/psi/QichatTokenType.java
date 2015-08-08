@@ -8,4 +8,9 @@ public class QichatTokenType extends IElementType {
     public QichatTokenType(@NotNull String debug) {
         super(debug, QichatLanguage.INSTANCE);
     }
+
+    @Override
+    public String toString() {
+        return "QichatTokenType." + super.toString();
+    }
 }

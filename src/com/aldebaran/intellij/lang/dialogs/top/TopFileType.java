@@ -7,11 +7,11 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class AldebaranTopFileType extends LanguageFileType {
+public class TopFileType extends LanguageFileType {
 
-    public static final AldebaranTopFileType INSTANCE = new AldebaranTopFileType();
+    public static final TopFileType INSTANCE = new TopFileType();
 
-    protected AldebaranTopFileType() {
+    protected TopFileType() {
         super(QichatLanguage.INSTANCE);
     }
 

@@ -1,0 +1,57 @@
+{
+    parserClass='com.aldebaran.intellij.parser.QichatParser'
+
+    extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
+
+    psiClassPrefix="Qichat"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.aldebaran.intellij.psi"
+    psiImplPackage="com.aldebaran.intellij.psi.impl"
+
+    elementTypeHolderClass="com.aldebaran.intellij.psi.QichatTypes"
+    elementTypeClass="com.aldebaran.intellij.psi.QichatElementType"
+    tokenTypeClass="com.aldebaran.intellij.psi.QichatTokenType"
+
+    tokens = [
+        // operators
+        COLON           = ":"
+        TILDE           = "~"
+        QMARK           = "?"
+        PAR_LEFT        = "("
+        PAR_RIGHT       = ")"
+        CURLY_LEFT      = "{"
+        CURLY_RIGHT     = "}"
+        BRACKET_LEFT    = "["
+        BRACKET_RIGHT   = "]"
+        OP_EQ           = "="
+
+        // others
+        space           = 'regexp:\s+'
+        line_comment    = "regexp:#.*"
+        top_language    = "regexp:frf|enu|jpg|esp"
+        id              = "regexp:(\w|-|_)+"
+        string          = "regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\\"|\\\'|\\)*\")"
+    ]
+}
+
+qichatFile ::= header item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+header ::= topic_header topic_language
+
+topic_header ::= 'topic:' [space] '~' id '()'
+
+topic_language ::= 'language:' [space] top_language
+
+property ::= (concept|proposal)
+
+concept ::= 'concept:(' id ')' [space] string|choice_list|optional_choice_list
+
+concept_usage ::= '~' id
+
+proposal ::= 'proposal:' [space] string|choice_list|optional_choice_list
+
+choice_list ::= '[' 1*((string|concept_usage) [space]) ']'
+
+optional_choice_list ::= '{' 1*((string|concept_usage) [space]) '}'
