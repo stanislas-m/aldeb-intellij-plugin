@@ -34,10 +34,4 @@ public class QichatOptionalItemImpl extends ASTWrapperPsiElement implements Qich
     return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatConceptCall.class);
   }
 
-  @Override
-  @NotNull
-  public List<QichatString> getStringList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatString.class);
-  }
-
 }

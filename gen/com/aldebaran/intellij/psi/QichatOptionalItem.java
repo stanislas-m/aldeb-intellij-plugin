@@ -13,7 +13,4 @@ public interface QichatOptionalItem extends PsiElement {
   @NotNull
   List<QichatConceptCall> getConceptCallList();
 
-  @NotNull
-  List<QichatString> getStringList();
-
 }

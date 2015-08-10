@@ -26,10 +26,11 @@ public interface QichatTypes {
   IElementType OPTIONAL_ITEM = new QichatElementType("OPTIONAL_ITEM");
   IElementType PARAMETERS_LIST = new QichatElementType("PARAMETERS_LIST");
   IElementType PREVIOUS_PROPOSAL = new QichatElementType("PREVIOUS_PROPOSAL");
+  IElementType PROPOSAL = new QichatElementType("PROPOSAL");
   IElementType P_CALL = new QichatElementType("P_CALL");
   IElementType SAME_PROPOSAL = new QichatElementType("SAME_PROPOSAL");
-  IElementType STRING = new QichatElementType("STRING");
   IElementType S_CALL = new QichatElementType("S_CALL");
+  IElementType TAG = new QichatElementType("TAG");
   IElementType TOPIC_HEADER = new QichatElementType("TOPIC_HEADER");
   IElementType USER_RULE = new QichatElementType("USER_RULE");
   IElementType VARIABLE = new QichatElementType("VARIABLE");
@@ -41,13 +42,13 @@ public interface QichatTypes {
   IElementType CIRCONFLEX = new QichatTokenType("^");
   IElementType CLASS_NAME = new QichatTokenType("class_name");
   IElementType COLON = new QichatTokenType(":");
+  IElementType COMMA = new QichatTokenType(",");
   IElementType COMMENT = new QichatTokenType("comment");
   IElementType CONCEPT_KEYWORD = new QichatTokenType("concept");
   IElementType CURLY_LEFT = new QichatTokenType("{");
   IElementType CURLY_RIGHT = new QichatTokenType("}");
   IElementType DOLLAR = new QichatTokenType("$");
   IElementType DOT = new QichatTokenType(".");
-  IElementType DOUBLE_QUOTED_STRING = new QichatTokenType("double_quoted_string");
   IElementType EOL = new QichatTokenType("eol");
   IElementType EQUALS = new QichatTokenType("==");
   IElementType GOTO_REACTIVATE_FUNCTION = new QichatTokenType("gotoReactivate");
@@ -65,12 +66,12 @@ public interface QichatTypes {
   IElementType PCALL_FUNCTION = new QichatTokenType("pCall");
   IElementType PERCENT = new QichatTokenType("%");
   IElementType PREVIOUS_PROPOSAL_FUNCTION = new QichatTokenType("previousProposal");
-  IElementType PROPOSAL = new QichatTokenType("proposal");
+  IElementType PROPOSAL_KEYWORD = new QichatTokenType("proposal");
   IElementType QMARK = new QichatTokenType("?");
   IElementType SAME_PROPOSAL_FUNCTION = new QichatTokenType("sameProposal");
   IElementType SCALL_FUNCTION = new QichatTokenType("sCall");
-  IElementType SINGLE_QUOTED_STRING = new QichatTokenType("single_quoted_string");
   IElementType SPACE = new QichatTokenType("space");
+  IElementType STRING = new QichatTokenType("string");
   IElementType TILDE = new QichatTokenType("~");
   IElementType TOPIC_KEYWORD = new QichatTokenType("topic");
 
@@ -131,17 +132,20 @@ public interface QichatTypes {
       else if (type == PREVIOUS_PROPOSAL) {
         return new QichatPreviousProposalImpl(node);
       }
+      else if (type == PROPOSAL) {
+        return new QichatProposalImpl(node);
+      }
       else if (type == P_CALL) {
         return new QichatPCallImpl(node);
       }
       else if (type == SAME_PROPOSAL) {
         return new QichatSameProposalImpl(node);
       }
-      else if (type == STRING) {
-        return new QichatStringImpl(node);
-      }
       else if (type == S_CALL) {
         return new QichatSCallImpl(node);
+      }
+      else if (type == TAG) {
+        return new QichatTagImpl(node);
       }
       else if (type == TOPIC_HEADER) {
         return new QichatTopicHeaderImpl(node);

@@ -80,14 +80,17 @@ public class QichatParser implements PsiParser, LightPsiParser {
     else if (t == PREVIOUS_PROPOSAL) {
       r = previousProposal(b, 0);
     }
+    else if (t == PROPOSAL) {
+      r = proposal(b, 0);
+    }
     else if (t == S_CALL) {
       r = sCall(b, 0);
     }
     else if (t == SAME_PROPOSAL) {
       r = sameProposal(b, 0);
     }
-    else if (t == STRING) {
-      r = string(b, 0);
+    else if (t == TAG) {
+      r = tag(b, 0);
     }
     else if (t == TOPIC_HEADER) {
       r = topic_header(b, 0);
@@ -181,7 +184,7 @@ public class QichatParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "choice_list_1_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = string(b, l + 1);
+    r = consumeToken(b, STRING);
     if (!r) r = optional_item(b, l + 1);
     if (!r) r = concept_call(b, l + 1);
     exit_section_(b, m, null, r);
@@ -283,7 +286,7 @@ public class QichatParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "concept_6_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = string(b, l + 1);
+    r = consumeToken(b, STRING);
     if (!r) r = choice_list(b, l + 1);
     if (!r) r = optional_item(b, l + 1);
     if (!r) r = concept_call(b, l + 1);
@@ -318,7 +321,7 @@ public class QichatParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<dialog definition line>");
     r = concept(b, l + 1);
-    if (!r) r = consumeToken(b, PROPOSAL);
+    if (!r) r = proposal(b, l + 1);
     if (!r) r = user_rule(b, l + 1);
     exit_section_(b, l, m, DIALOG_DEFINITION_LINE, r, false, null);
     return r;
@@ -499,7 +502,7 @@ public class QichatParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "optional_item_1_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = string(b, l + 1);
+    r = consumeToken(b, STRING);
     if (!r) r = choice_list(b, l + 1);
     if (!r) r = concept_call(b, l + 1);
     exit_section_(b, m, null, r);
@@ -545,7 +548,7 @@ public class QichatParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, PARAMETER);
-    r = r && consumeToken(b, ",");
+    r = r && consumeToken(b, COMMA);
     r = r && parameters_list_1_2(b, l + 1);
     r = r && parameters_list(b, l + 1);
     exit_section_(b, m, null, r);
@@ -569,6 +572,69 @@ public class QichatParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, PREVIOUS_PROPOSAL_FUNCTION);
     exit_section_(b, m, PREVIOUS_PROPOSAL, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // 'proposal' ':' ((tag|string|choice_list|optional_item|concept_call)[space])+ eol
+  public static boolean proposal(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proposal")) return false;
+    if (!nextTokenIs(b, PROPOSAL_KEYWORD)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PROPOSAL_KEYWORD);
+    r = r && consumeToken(b, COLON);
+    r = r && proposal_2(b, l + 1);
+    r = r && consumeToken(b, EOL);
+    exit_section_(b, m, PROPOSAL, r);
+    return r;
+  }
+
+  // ((tag|string|choice_list|optional_item|concept_call)[space])+
+  private static boolean proposal_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proposal_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = proposal_2_0(b, l + 1);
+    int c = current_position_(b);
+    while (r) {
+      if (!proposal_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "proposal_2", c)) break;
+      c = current_position_(b);
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (tag|string|choice_list|optional_item|concept_call)[space]
+  private static boolean proposal_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proposal_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = proposal_2_0_0(b, l + 1);
+    r = r && proposal_2_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // tag|string|choice_list|optional_item|concept_call
+  private static boolean proposal_2_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proposal_2_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = tag(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    if (!r) r = choice_list(b, l + 1);
+    if (!r) r = optional_item(b, l + 1);
+    if (!r) r = concept_call(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [space]
+  private static boolean proposal_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "proposal_2_0_1")) return false;
+    consumeToken(b, SPACE);
+    return true;
   }
 
   /* ********************************************************** */
@@ -674,16 +740,24 @@ public class QichatParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // single_quoted_string|double_quoted_string
-  public static boolean string(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "string")) return false;
-    if (!nextTokenIs(b, "<string>", DOUBLE_QUOTED_STRING, SINGLE_QUOTED_STRING)) return false;
+  // '%' id [space]
+  public static boolean tag(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag")) return false;
+    if (!nextTokenIs(b, PERCENT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<string>");
-    r = consumeToken(b, SINGLE_QUOTED_STRING);
-    if (!r) r = consumeToken(b, DOUBLE_QUOTED_STRING);
-    exit_section_(b, l, m, STRING, r, false, null);
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PERCENT);
+    r = r && consumeToken(b, ID);
+    r = r && tag_2(b, l + 1);
+    exit_section_(b, m, TAG, r);
     return r;
+  }
+
+  // [space]
+  private static boolean tag_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_2")) return false;
+    consumeToken(b, SPACE);
+    return true;
   }
 
   /* ********************************************************** */

@@ -11,6 +11,9 @@ public interface QichatDialogDefinitionLine extends PsiElement {
   QichatConcept getConcept();
 
   @Nullable
+  QichatProposal getProposal();
+
+  @Nullable
   QichatUserRule getUserRule();
 
 }

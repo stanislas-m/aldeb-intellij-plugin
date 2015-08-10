@@ -30,6 +30,12 @@ public class QichatDialogDefinitionLineImpl extends ASTWrapperPsiElement impleme
 
   @Override
   @Nullable
+  public QichatProposal getProposal() {
+    return findChildByClass(QichatProposal.class);
+  }
+
+  @Override
+  @Nullable
   public QichatUserRule getUserRule() {
     return findChildByClass(QichatUserRule.class);
   }

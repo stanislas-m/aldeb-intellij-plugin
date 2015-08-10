@@ -17,9 +17,6 @@ public interface QichatConcept extends PsiElement {
   List<QichatOptionalItem> getOptionalItemList();
 
   @NotNull
-  List<QichatString> getStringList();
-
-  @NotNull
   PsiElement getEol();
 
   @NotNull

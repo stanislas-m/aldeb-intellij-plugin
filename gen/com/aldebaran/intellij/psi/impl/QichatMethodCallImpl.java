@@ -28,16 +28,4 @@ public class QichatMethodCallImpl extends ASTWrapperPsiElement implements Qichat
     return findNotNullChildByClass(QichatParametersList.class);
   }
 
-  @Override
-  @NotNull
-  public PsiElement getClassName() {
-    return findNotNullChildByType(CLASS_NAME);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getMethodName() {
-    return findNotNullChildByType(METHOD_NAME);
-  }
-
 }

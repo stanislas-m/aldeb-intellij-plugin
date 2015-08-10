@@ -10,10 +10,4 @@ public interface QichatMethodCall extends PsiElement {
   @NotNull
   QichatParametersList getParametersList();
 
-  @NotNull
-  PsiElement getClassName();
-
-  @NotNull
-  PsiElement getMethodName();
-
 }

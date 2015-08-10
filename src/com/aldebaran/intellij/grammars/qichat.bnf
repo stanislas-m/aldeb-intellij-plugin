@@ -36,6 +36,7 @@
         LANGUAGE_KEYWORD = "language"
         INCLUDE_KEYWORD  = "include"
         CONCEPT_KEYWORD  = "concept"
+        PROPOSAL_KEYWORD = "proposal"
 
         PCALL_FUNCTION   = "pCall"
         SCALL_FUNCTION   = "sCall"
@@ -45,15 +46,10 @@
         SAME_PROPOSAL_FUNCTION = "sameProposal"
         GOTO_REACTIVATE_FUNCTION = "gotoReactivate"
 
-        eol              = "regexp:\n"
         space            = "regexp:\s"
         comment          = "regexp:#.*"
         number           = "regexp:\d+(\.\d*)?"
         id               = "regexp:\p{Alpha}(\w|_|-)*"
-        class_name       = "regexp:[A-Z](\w)+"
-        method_name      = "regexp:[a-z](\w)+"
-        single_quoted_string = "regexp:\'[^\']+\'"
-        double_quoted_string = "regexp:\"[^\"]+\""
         path             = "regexp:(\w|_|-|/|\.)+"
     ]
 }
@@ -61,8 +57,6 @@
 root ::= root_item
 
 private root_item ::= !<<eof>> header (include|eol)* (dialog_definition_line|eol)*
-
-string ::= single_quoted_string|double_quoted_string
 
 // ----------------- Header --------------------------------------------------------
 header ::= topic_header language_header
@@ -83,11 +77,15 @@ optional_item ::= '{' ((string|choice_list|concept_call) [space])+ '}'
 
 concept ::= 'concept' ':' '(' id ')'[space] ((string|choice_list|optional_item|concept_call)[space])+ eol
 
+proposal ::= 'proposal' ':' ((tag|string|choice_list|optional_item|concept_call)[space])+ eol
+
 concept_call ::= '~' id
 
 user_rule ::= 'u' ':' '(' event_input ')' [eol] (space)+ ((command_line [space])+ eol)+
 
 event_input ::= 'e' ':' id
+
+tag ::= '%' id [space]
 
 variable ::= '$' id [space]
 

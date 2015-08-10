@@ -42,12 +42,6 @@ public class QichatConceptImpl extends ASTWrapperPsiElement implements QichatCon
 
   @Override
   @NotNull
-  public List<QichatString> getStringList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatString.class);
-  }
-
-  @Override
-  @NotNull
   public PsiElement getEol() {
     return findNotNullChildByType(EOL);
   }

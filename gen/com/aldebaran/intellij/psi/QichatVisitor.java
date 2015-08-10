@@ -83,6 +83,10 @@ public class QichatVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitProposal(@NotNull QichatProposal o) {
+    visitPsiElement(o);
+  }
+
   public void visitSCall(@NotNull QichatSCall o) {
     visitPsiElement(o);
   }
@@ -91,7 +95,7 @@ public class QichatVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitString(@NotNull QichatString o) {
+  public void visitTag(@NotNull QichatTag o) {
     visitPsiElement(o);
   }
 

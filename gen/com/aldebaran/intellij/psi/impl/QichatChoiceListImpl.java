@@ -34,10 +34,4 @@ public class QichatChoiceListImpl extends ASTWrapperPsiElement implements Qichat
     return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatOptionalItem.class);
   }
 
-  @Override
-  @NotNull
-  public List<QichatString> getStringList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatString.class);
-  }
-
 }
