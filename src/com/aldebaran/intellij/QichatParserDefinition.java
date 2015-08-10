@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class QichatParserDefinition implements ParserDefinition {
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    public static final TokenSet COMMENTS = TokenSet.create(QichatTypes.COMMENT, QichatTypes.LINE_COMMENT);
+    public static final TokenSet COMMENTS = TokenSet.create(QichatTypes.COMMENT);
     public static final TokenSet ID = TokenSet.create(QichatTypes.ID);
 
     public static final IFileElementType FILE = new IFileElementType(Language.<QichatLanguage>findInstance(QichatLanguage.class));

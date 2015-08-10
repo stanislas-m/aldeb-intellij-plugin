@@ -11,33 +11,27 @@ import static com.aldebaran.intellij.psi.QichatTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.aldebaran.intellij.psi.*;
 
-public class QichatOptionalChoiceListImpl extends ASTWrapperPsiElement implements QichatOptionalChoiceList {
+public class QichatVariableImpl extends ASTWrapperPsiElement implements QichatVariable {
 
-  public QichatOptionalChoiceListImpl(ASTNode node) {
+  public QichatVariableImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitOptionalChoiceList(this);
+    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitVariable(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public QichatConceptUsage getConceptUsage() {
-    return findChildByClass(QichatConceptUsage.class);
+  @NotNull
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
   }
 
   @Override
   @Nullable
   public PsiElement getSpace() {
     return findChildByType(SPACE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getString() {
-    return findChildByType(STRING);
   }
 
 }

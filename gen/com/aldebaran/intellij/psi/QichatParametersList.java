@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QichatConceptUsage extends PsiElement {
+public interface QichatParametersList extends PsiElement {
 
-  @NotNull
-  PsiElement getId();
+  @Nullable
+  QichatParametersList getParametersList();
+
+  @Nullable
+  PsiElement getSpace();
 
 }

@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface QichatTopicHeader extends PsiElement {
 
   @NotNull
+  PsiElement getEol();
+
+  @NotNull
   PsiElement getId();
 
   @Nullable

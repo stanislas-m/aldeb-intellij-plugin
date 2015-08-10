@@ -24,6 +24,12 @@ public class QichatTopicHeaderImpl extends ASTWrapperPsiElement implements Qicha
 
   @Override
   @NotNull
+  public PsiElement getEol() {
+    return findNotNullChildByType(EOL);
+  }
+
+  @Override
+  @NotNull
   public PsiElement getId() {
     return findNotNullChildByType(ID);
   }

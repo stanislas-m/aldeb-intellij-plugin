@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QichatProperty extends PsiElement {
+public interface QichatConceptCall extends PsiElement {
 
-  @Nullable
-  QichatConcept getConcept();
-
-  @Nullable
-  QichatProposal getProposal();
+  @NotNull
+  PsiElement getId();
 
 }

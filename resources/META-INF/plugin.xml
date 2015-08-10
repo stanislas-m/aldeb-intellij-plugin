@@ -47,7 +47,6 @@
   </project-components>
 
   <actions>
-
     <action id="AldebaranIntegration.PackageApp" class="com.aldebaran.intellij.actions.PackageAppAction" text="Build application package" icon="/icons/package.png">
       <add-to-group group-id="NavBarToolBar" anchor="first"/>
     </action>

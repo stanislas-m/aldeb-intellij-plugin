@@ -7,19 +7,22 @@ import com.intellij.psi.PsiElement;
 
 public interface QichatConcept extends PsiElement {
 
-  @Nullable
-  QichatChoiceList getChoiceList();
+  @NotNull
+  List<QichatChoiceList> getChoiceListList();
 
-  @Nullable
-  QichatOptionalChoiceList getOptionalChoiceList();
+  @NotNull
+  List<QichatConceptCall> getConceptCallList();
 
-  @Nullable
+  @NotNull
+  List<QichatOptionalItem> getOptionalItemList();
+
+  @NotNull
+  List<QichatString> getStringList();
+
+  @NotNull
+  PsiElement getEol();
+
+  @NotNull
   PsiElement getId();
-
-  @Nullable
-  PsiElement getSpace();
-
-  @Nullable
-  PsiElement getString();
 
 }

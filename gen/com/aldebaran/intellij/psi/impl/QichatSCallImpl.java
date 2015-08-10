@@ -11,27 +11,21 @@ import static com.aldebaran.intellij.psi.QichatTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.aldebaran.intellij.psi.*;
 
-public class QichatTopicLanguageImpl extends ASTWrapperPsiElement implements QichatTopicLanguage {
+public class QichatSCallImpl extends ASTWrapperPsiElement implements QichatSCall {
 
-  public QichatTopicLanguageImpl(ASTNode node) {
+  public QichatSCallImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitTopicLanguage(this);
+    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitSCall(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public PsiElement getSpace() {
-    return findChildByType(SPACE);
-  }
-
-  @Override
   @NotNull
-  public PsiElement getTopLanguage() {
-    return findNotNullChildByType(TOP_LANGUAGE);
+  public QichatCallCommandParameters getCallCommandParameters() {
+    return findNotNullChildByClass(QichatCallCommandParameters.class);
   }
 
 }

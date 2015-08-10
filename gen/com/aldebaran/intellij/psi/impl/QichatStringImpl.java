@@ -11,27 +11,27 @@ import static com.aldebaran.intellij.psi.QichatTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.aldebaran.intellij.psi.*;
 
-public class QichatHeaderImpl extends ASTWrapperPsiElement implements QichatHeader {
+public class QichatStringImpl extends ASTWrapperPsiElement implements QichatString {
 
-  public QichatHeaderImpl(ASTNode node) {
+  public QichatStringImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitHeader(this);
+    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitString(this);
     else super.accept(visitor);
   }
 
   @Override
-  @NotNull
-  public QichatLanguageHeader getLanguageHeader() {
-    return findNotNullChildByClass(QichatLanguageHeader.class);
+  @Nullable
+  public PsiElement getDoubleQuotedString() {
+    return findChildByType(DOUBLE_QUOTED_STRING);
   }
 
   @Override
-  @NotNull
-  public QichatTopicHeader getTopicHeader() {
-    return findNotNullChildByClass(QichatTopicHeader.class);
+  @Nullable
+  public PsiElement getSingleQuotedString() {
+    return findChildByType(SINGLE_QUOTED_STRING);
   }
 
 }

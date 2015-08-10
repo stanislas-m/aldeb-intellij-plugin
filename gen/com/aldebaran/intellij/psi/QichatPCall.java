@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QichatHeader extends PsiElement {
+public interface QichatPCall extends PsiElement {
 
   @NotNull
-  QichatLanguageHeader getLanguageHeader();
-
-  @NotNull
-  QichatTopicHeader getTopicHeader();
+  QichatCallCommandParameters getCallCommandParameters();
 
 }

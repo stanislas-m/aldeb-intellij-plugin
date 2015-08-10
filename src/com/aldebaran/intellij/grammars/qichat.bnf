@@ -14,44 +14,98 @@
 
     tokens = [
         // operators
-        COLON           = ":"
-        TILDE           = "~"
-        QMARK           = "?"
-        PAR_LEFT        = "("
-        PAR_RIGHT       = ")"
-        CURLY_LEFT      = "{"
-        CURLY_RIGHT     = "}"
-        BRACKET_LEFT    = "["
-        BRACKET_RIGHT   = "]"
-        OP_EQ           = "="
+        DOT              = "."
+        COLON            = ":"
+        TILDE            = "~"
+        QMARK            = "?"
+        PAR_LEFT         = "("
+        PAR_RIGHT        = ")"
+        CURLY_LEFT       = "{"
+        CURLY_RIGHT      = "}"
+        BRACKET_LEFT     = "["
+        BRACKET_RIGHT    = "]"
+        OP_EQ            = "="
+        PERCENT          = "%"
+        CIRCONFLEX       = "^"
+        DOLLAR           = "$"
+        BACKSLASH        = "\\"
+        EQUALS           = "=="
+        COMMA            = ","
 
-        // others
-        space           = 'regexp:\s+'
-        line_comment    = "regexp:#.*"
-        top_language    = "regexp:frf|enu|jpg|esp"
-        id              = "regexp:(\w|-|_)+"
-        string          = "regexp:('([^'\\]|\\.)*'|\"([^\"\\]|\\\"|\\\'|\\)*\")"
+        TOPIC_KEYWORD    = "topic"
+        LANGUAGE_KEYWORD = "language"
+        INCLUDE_KEYWORD  = "include"
+        CONCEPT_KEYWORD  = "concept"
+
+        PCALL_FUNCTION   = "pCall"
+        SCALL_FUNCTION   = "sCall"
+        CALL_FUNCTION    = "call"
+        PREVIOUS_PROPOSAL_FUNCTION = "previousProposal"
+        NEXT_PROPOSAL_FUNCTION = "nextProposal"
+        SAME_PROPOSAL_FUNCTION = "sameProposal"
+        GOTO_REACTIVATE_FUNCTION = "gotoReactivate"
+
+        eol              = "regexp:\n"
+        space            = "regexp:\s"
+        comment          = "regexp:#.*"
+        number           = "regexp:\d+(\.\d*)?"
+        id               = "regexp:\p{Alpha}(\w|_|-)*"
+        class_name       = "regexp:[A-Z](\w)+"
+        method_name      = "regexp:[a-z](\w)+"
+        single_quoted_string = "regexp:\'[^\']+\'"
+        double_quoted_string = "regexp:\"[^\"]+\""
+        path             = "regexp:(\w|_|-|/|\.)+"
     ]
 }
 
-qichatFile ::= header item_*
+root ::= root_item
 
-private item_ ::= (property|COMMENT|CRLF)
+private root_item ::= !<<eof>> header (include|eol)* (dialog_definition_line|eol)*
 
-header ::= topic_header topic_language
+string ::= single_quoted_string|double_quoted_string
 
-topic_header ::= 'topic:' [space] '~' id '()'
+// ----------------- Header --------------------------------------------------------
+header ::= topic_header language_header
 
-topic_language ::= 'language:' [space] top_language
+topic_header ::= 'topic' ':' [space] '~' id '()' eol
+private language_header_language ::= 'frf'|'enu'|'jpj'|'esp'
+language_header ::= 'language' ':' [space] language_header_language eol
 
-property ::= (concept|proposal)
+// ----------------- Includes-------------------------------------------------------
+include ::= 'include' ':' [space] path eol
 
-concept ::= 'concept:(' id ')' [space] string|choice_list|optional_choice_list
+// ----------------- Definitions----------------------------------------------------
+dialog_definition_line ::= (concept|proposal|user_rule)
 
-concept_usage ::= '~' id
+choice_list ::= '[' ((string|optional_item|concept_call) [space])+ ']'
 
-proposal ::= 'proposal:' [space] string|choice_list|optional_choice_list
+optional_item ::= '{' ((string|choice_list|concept_call) [space])+ '}'
 
-choice_list ::= '[' 1*((string|concept_usage) [space]) ']'
+concept ::= 'concept' ':' '(' id ')'[space] ((string|choice_list|optional_item|concept_call)[space])+ eol
 
-optional_choice_list ::= '{' 1*((string|concept_usage) [space]) '}'
+concept_call ::= '~' id
+
+user_rule ::= 'u' ':' '(' event_input ')' [eol] (space)+ ((command_line [space])+ eol)+
+
+event_input ::= 'e' ':' id
+
+variable ::= '$' id [space]
+
+command_line ::= '^' command
+
+// ----------------- Commands -------------------------------------------------------
+
+command ::= pCall|sCall|call|previousProposal|nextProposal|sameProposal|gotoReactivate
+
+call_command_parameters ::= '(' method_call ')'
+
+method_call ::= class_name '.' method_name '(' parameters_list ')'
+parameters_list ::= parameter|parameter ',' [space] parameters_list
+
+pCall ::= 'pCall' call_command_parameters
+sCall ::= 'sCall' call_command_parameters
+call ::= 'call' call_command_parameters
+previousProposal ::= 'previousProposal'
+nextProposal ::= 'nextProposal'
+sameProposal ::= 'sameProposal'
+gotoReactivate ::= 'gotoReactivate' '(' id ')'

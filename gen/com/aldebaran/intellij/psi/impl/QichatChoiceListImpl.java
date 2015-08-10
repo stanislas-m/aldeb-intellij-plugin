@@ -23,21 +23,21 @@ public class QichatChoiceListImpl extends ASTWrapperPsiElement implements Qichat
   }
 
   @Override
-  @Nullable
-  public QichatConceptUsage getConceptUsage() {
-    return findChildByClass(QichatConceptUsage.class);
+  @NotNull
+  public List<QichatConceptCall> getConceptCallList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatConceptCall.class);
   }
 
   @Override
-  @Nullable
-  public PsiElement getSpace() {
-    return findChildByType(SPACE);
+  @NotNull
+  public List<QichatOptionalItem> getOptionalItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatOptionalItem.class);
   }
 
   @Override
-  @Nullable
-  public PsiElement getString() {
-    return findChildByType(STRING);
+  @NotNull
+  public List<QichatString> getStringList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QichatString.class);
   }
 
 }

@@ -5,18 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QichatProposal extends PsiElement {
+public interface QichatString extends PsiElement {
 
   @Nullable
-  QichatChoiceList getChoiceList();
+  PsiElement getDoubleQuotedString();
 
   @Nullable
-  QichatOptionalChoiceList getOptionalChoiceList();
-
-  @Nullable
-  PsiElement getSpace();
-
-  @Nullable
-  PsiElement getString();
+  PsiElement getSingleQuotedString();
 
 }

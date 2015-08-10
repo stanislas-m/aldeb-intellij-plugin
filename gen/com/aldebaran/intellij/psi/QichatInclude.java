@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QichatTopicLanguage extends PsiElement {
+public interface QichatInclude extends PsiElement {
+
+  @NotNull
+  PsiElement getEol();
+
+  @NotNull
+  PsiElement getPath();
 
   @Nullable
   PsiElement getSpace();
-
-  @NotNull
-  PsiElement getTopLanguage();
 
 }
