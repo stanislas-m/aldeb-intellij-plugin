@@ -1,15 +1,14 @@
 package com.aldebaran.intellij;
 
-import com.aldebaran.intellij.lang.dialogs.top.QichatLanguage;
-import com.aldebaran.intellij.lexer.QichatLexerAdapter;
+import com.aldebaran.intellij.lang.file.dialogs.top.QichatLanguage;
+import com.aldebaran.intellij.lang.lexer.QichatLexerAdapter;
 import com.aldebaran.intellij.parser.QichatParser;
-import com.aldebaran.intellij.psi.QichatFile;
-import com.aldebaran.intellij.psi.QichatTypes;
+import com.aldebaran.intellij.lang.psi.QichatFile;
+import com.aldebaran.intellij.lang.psi.QichatTypes;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
-import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;

@@ -1,0 +1,36 @@
+// This is a generated file. Not intended for manual editing.
+package com.aldebaran.intellij.lang.psi.impl;
+
+import org.jetbrains.annotations.*;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
+
+import static com.aldebaran.intellij.lang.psi.QichatTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.aldebaran.intellij.lang.psi.*;
+
+public class QichatParametersListImpl extends ASTWrapperPsiElement implements QichatParametersList {
+
+  public QichatParametersListImpl(ASTNode node) {
+    super(node);
+  }
+
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof QichatVisitor) ((QichatVisitor)visitor).visitParametersList(this);
+    else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public QichatParametersList getParametersList() {
+    return findChildByClass(QichatParametersList.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getSpace() {
+    return findChildByType(SPACE);
+  }
+
+}

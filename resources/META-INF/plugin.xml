@@ -17,10 +17,11 @@
 
   <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products -->
   <depends>com.intellij.modules.lang</depends>
 
   <extensions defaultExtensionNs="com.intellij">
+    <errorHandler implementation="com.intellij.diagnostic.ITNReporter"/>
+
     <projectService serviceImplementation="com.aldebaran.intellij.settings.AldebaranSettingsProvider"/>
     <projectConfigurable groupId="language"
                          id="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"
@@ -28,14 +29,17 @@
                          instance="com.aldebaran.intellij.settings.AldebaranSettingsConfigurable"/>
 
     <!-- File types -->
-    <fileTypeFactory implementation="com.aldebaran.intellij.lang.pml.PmlFileTypeFactory"/>
-    <fileTypeFactory implementation="com.aldebaran.intellij.lang.pkg.PkgFileTypeFactory"/>
-    <fileTypeFactory implementation="com.aldebaran.intellij.lang.xar.XarFileTypeFactory"/>
-    <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.dlg.DlgFileTypeFactory"/>
-    <fileTypeFactory implementation="com.aldebaran.intellij.lang.dialogs.top.TopFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.file.pml.PmlFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.file.pkg.PkgFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.file.xar.XarFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.file.dialogs.dlg.DlgFileTypeFactory"/>
+    <fileTypeFactory implementation="com.aldebaran.intellij.lang.file.dialogs.top.TopFileTypeFactory"/>
 
     <lang.parserDefinition language="Qichat" implementationClass="com.aldebaran.intellij.QichatParserDefinition"/>
-    <lang.syntaxHighlighterFactory key="Qichat" implementationClass="com.aldebaran.intellij.highlighting.QichatSyntaxHighlighterFactory"/>
+    <lang.syntaxHighlighterFactory key="Qichat" implementationClass="com.aldebaran.intellij.lang.highlighting.QichatSyntaxHighlighterFactory"/>
+    <languageInjector implementation="com.aldebaran.intellij.lang.injector.XarPythonInjector" />
+
+    <framework.type implementation="com.aldebaran.intellij.framework.NaoqiFramework" />
   </extensions>
 
   <application-components>
@@ -47,7 +51,7 @@
   </project-components>
 
   <actions>
-    <action id="AldebaranIntegration.PackageApp" class="com.aldebaran.intellij.actions.PackageAppAction" text="Build application package" icon="/icons/package.png">
+    <action id="AldebaranIntegration.PackageApp" class="com.aldebaran.intellij.action.PackageAppAction" text="Build application package" icon="/icons/package.png">
       <add-to-group group-id="NavBarToolBar" anchor="first"/>
     </action>
   </actions>

@@ -5,12 +5,12 @@
 
     psiClassPrefix="Qichat"
     psiImplClassSuffix="Impl"
-    psiPackage="com.aldebaran.intellij.psi"
-    psiImplPackage="com.aldebaran.intellij.psi.impl"
+    psiPackage="com.aldebaran.intellij.lang.psi"
+    psiImplPackage="com.aldebaran.intellij.lang.psi.impl"
 
-    elementTypeHolderClass="com.aldebaran.intellij.psi.QichatTypes"
-    elementTypeClass="com.aldebaran.intellij.psi.QichatElementType"
-    tokenTypeClass="com.aldebaran.intellij.psi.QichatTokenType"
+    elementTypeHolderClass="com.aldebaran.intellij.lang.psi.QichatTypes"
+    elementTypeClass="com.aldebaran.intellij.lang.psi.QichatElementType"
+    tokenTypeClass="com.aldebaran.intellij.lang.psi.QichatTokenType"
 
     tokens = [
         // operators
