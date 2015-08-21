@@ -12,15 +12,16 @@ import static com.aldebaran.intellij.psi.QichatTypes.*;
 %unicode
 
 
+EOL="\r"|"\n"|"\r\n"
 LINE_WS=[\ \t\f]
 WHITE_SPACE=({LINE_WS}|{EOL})+
 
-EOL=\n
 SPACE=[ \t\n\x0B\f\r]
 COMMENT=#.*
 NUMBER=[0-9]+(\.[0-9]*)?
 ID=[:letter:]([a-zA-Z_0-9]|_|-)*
 PATH=([a-zA-Z_0-9]|_|-|"/"|\.)+
+STRING=\"[^\"]*\"
 
 %%
 <YYINITIAL> {
@@ -55,17 +56,17 @@ PATH=([a-zA-Z_0-9]|_|-|"/"|\.)+
   "nextProposal"          { return NEXT_PROPOSAL_FUNCTION; }
   "sameProposal"          { return SAME_PROPOSAL_FUNCTION; }
   "gotoReactivate"        { return GOTO_REACTIVATE_FUNCTION; }
-  "string"                { return STRING; }
+  "eol"                   { return EOL; }
   "class_name"            { return CLASS_NAME; }
   "method_name"           { return METHOD_NAME; }
   "parameter"             { return PARAMETER; }
 
-  {EOL}                   { return EOL; }
   {SPACE}                 { return SPACE; }
   {COMMENT}               { return COMMENT; }
   {NUMBER}                { return NUMBER; }
   {ID}                    { return ID; }
   {PATH}                  { return PATH; }
+  {STRING}                { return STRING; }
 
   [^] { return com.intellij.psi.TokenType.BAD_CHARACTER; }
 }

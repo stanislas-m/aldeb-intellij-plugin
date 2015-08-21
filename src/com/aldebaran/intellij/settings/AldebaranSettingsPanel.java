@@ -8,6 +8,10 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.components.JBLabel;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Objects;
 
@@ -24,15 +28,18 @@ public class AldebaranSettingsPanel {
         settingsProvider = provider;
 
         // Bind dir selection dialog
-        qibuildDirPathField.getButton().addActionListener(e -> {
-            FileChooserDescriptor descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor();
-            VirtualFile dir = FileChooser.chooseFile(descriptor, qibuildDirPathField, null, currentQibuildDir);
-            if (dir != null) {
-                if (dir.findChild("qibuild") != null) {
-                    qibuildDirPathField.setText(dir.getPath().replace('/', File.separatorChar));
-                    currentQibuildDir = dir;
-                } else {
-                    System.out.println("qibuild not found in this dir"); // TODO: Notification
+        qibuildDirPathField.getButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FileChooserDescriptor descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor();
+                VirtualFile dir = FileChooser.chooseFile(descriptor, qibuildDirPathField, null, currentQibuildDir);
+                if (dir != null) {
+                    if (dir.findChild("qibuild") != null) {
+                        qibuildDirPathField.setText(dir.getPath().replace('/', File.separatorChar));
+                        currentQibuildDir = dir;
+                    } else {
+                        System.out.println("qibuild not found in this dir"); // TODO: Notification
+                    }
                 }
             }
         });
@@ -43,14 +50,17 @@ public class AldebaranSettingsPanel {
             qiBuildDirPathLabel.setEnabled(true);
         }
 
-        enableNaoqiSupportCheckBox.addChangeListener(e -> {
-            JCheckBox cb = (JCheckBox) e.getSource();
-            if (cb.isSelected()) {
-                qibuildDirPathField.setEnabled(true);
-                qiBuildDirPathLabel.setEnabled(true);
-            } else {
-                qibuildDirPathField.setEnabled(false);
-                qiBuildDirPathLabel.setEnabled(false);
+        enableNaoqiSupportCheckBox.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JCheckBox cb = (JCheckBox) e.getSource();
+                if (cb.isSelected()) {
+                    qibuildDirPathField.setEnabled(true);
+                    qiBuildDirPathLabel.setEnabled(true);
+                } else {
+                    qibuildDirPathField.setEnabled(false);
+                    qiBuildDirPathLabel.setEnabled(false);
+                }
             }
         });
 

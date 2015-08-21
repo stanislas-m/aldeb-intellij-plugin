@@ -51,6 +51,7 @@
         number           = "regexp:\d+(\.\d*)?"
         id               = "regexp:\p{Alpha}(\w|_|-)*"
         path             = "regexp:(\w|_|-|/|\.)+"
+        string           = "regexp:\"[^\"]*\""
     ]
 }
 
